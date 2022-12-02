@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Collection;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| Api Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register API routes for your application. These
+| Here is where you can register Api routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
+| is assigned the "Api" middleware group. Enjoy building your Api!
 |
 */
 
@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->group(function (){
 });
 
 //login
-Route::post('/login', [\App\http\Controllers\Api\Authcontroller::class, 'login']);
+Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
 
 //get all user
 Route::get('/user', [\App\http\Controllers\Api\Authcontroller::class, 'getAllUser']); 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-
-
-class Authcontroller extends Controller
+class AuthController extends Controller
 {
     //register
     public function register(Request $request)
@@ -20,16 +18,14 @@ class Authcontroller extends Controller
             return response([
                 'message' => 'anda bukan admin, tidak bisa register admin atau pengurus'
             ], 403);
-            
         }
-        $validator = validator::make($request->all(),
-        [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'role' => 'required',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'email' => 'required|string|max:255|unique:users',
+            'password' => 'required|string|min:8'
         ]);
-
+        
         if ($validator->fails()) {
             return response()->json($validator->errors());
         }
@@ -38,7 +34,7 @@ class Authcontroller extends Controller
             'name' => $request->name,
             'role' => $request->role,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($request->password)
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -46,15 +42,15 @@ class Authcontroller extends Controller
         return response()->json([
             'data' => $user,
             'access_token' => $token,
-            'token_type' => 'Bearer',
+            'token_type' => 'Bearer'
         ]);
-
+    
     }
 
     //login
     public function login(Request $request)
     {
-        if (!Auth::attempt($request->only('email', 'password'))) {
+        if (! Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
                 'message' => 'Unauthorized'
             ], 401);
@@ -65,31 +61,29 @@ class Authcontroller extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'massage' => 'login sukses',
+            'message' => 'Login success',
             'access_token' => $token,
-            'token_type' => 'Bearer',
+            'token_type' => 'Bearer'
         ]);
     }
 
-    //logout
+    // logout
     public function logout()
     {
-        Auth()->user()->tokens()->delete();
-
+        Auth::user()->tokens()->delete();
         return response()->json([
-            'message' => 'logout sukses'
+            'message' => 'logout success'
         ]);
     }
 
-    //update user profile
+    // update user profile
     public function update(Request $request)
     {
-        $request ->valide([
+        $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique,email', Auth::user()->email,
-           
+            'email' => 'required|string|max:255|unique:users,email,' . Auth::user()->id
         ]);
-        if (Auth::check())
+        if(Auth::check())
         {
             if($request->input('password'))
             {
@@ -105,21 +99,21 @@ class Authcontroller extends Controller
             $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->update();
-
         }
         return response()->json([
-            'message' => 'update sukses'
+            'message' => 'update success'
         ]);
 
     }
-    
-    //get all user
+
+    // get all user
     public function getAllUser()
     {
+        $user = User::all();
         return response()->json([
             'success' => true,
-            'message' => 'Date User',
-            'data' => $User
+            'message' => 'Data User',
+            'data' => $user
         ], 200);
     }
 
@@ -132,7 +126,7 @@ class Authcontroller extends Controller
             ], 403);
         }
         $user = User::find($id);
-        if ($user){
+        if (!$user) {
             return response()->json([
                 'success' => false,
                 'message' => 'Data User Tidak Ditemukan',

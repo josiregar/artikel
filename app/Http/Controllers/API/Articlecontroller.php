@@ -42,8 +42,105 @@ class Articlecontroller extends Controller
             'data' => $article
         ], 201);
 
-        
-        
 
     } 
+
+    public function getArticle(){
+        if (Article::all()->count() == 0) {
+            return response([
+                'message' => 'Artikel tidak ditemukan'
+            ], 404);
+        }
+        $article = Article::all();
+        return response()->json([
+            'message' => 'Artikel berhasil ditemukan',
+            'data' => $article
+        ], 200);
+        
+    }
+    /**Get Article By Id */
+    public function getArticleById($id){
+        $article = Article::find($id);
+
+        if (!$article) {
+            return response([
+                'message' => 'Artikel tidak ditemukan'
+            ], 404);
+        }
+        return response()->json([
+            'message' => 'Artikel berhasil ditemukan',
+            'data' => $article
+        ], 200);
+    }
+
+    //Update Article
+    public function updateArticle(Request $request, $id){
+        $article = Article::find($id);
+
+        // only admin can create new article
+        if (Auth::user()->role != 'admin') {
+            return response([
+                'message' => 'anda bukan admin, tidak bisa mengupdate artikel'
+            ], 403);
+    }
+    $article = Article::find($id);
+
+    // if empety data 
+    if (!$article == null) {
+        return ['message' => 'Artikel tidak ditemukan'];
+    }
+
+    $this->validate($request, [
+        'title' => 'required',
+        'desc' => 'required',
+        'image' => 'required',
+        'author_id' => 'required'
+    ]);
+
+    $article->update($request->all());
+    return ['message' => 'Artikel berhasil diupdate'];
+    
+
+}
+
+//Delete Article By Id
+public function deleteArticle($id)
+{
+    if (Auth::user()->role != 'admin') {
+        return response([
+            'message' => 'anda bukan admin, tidak bisa menghapus artikel'
+        ], 403);
+    }
+
+    $article = Article::find($id);
+
+    //if empty data
+    if (!$article == null) {
+        return ['message' => 'Artikel tidak ditemukan'];
+    }
+
+    $article->delete();
+    return ['message' => 'Artikel berhasil dihapus'];
+}
+
+//Delete All Article
+public function deleteAllArticle(){
+    $article = Article::all();
+    //only admin can delete all article
+    if (Auth::user()->role != 'admin') {
+        return response([
+            'message' => 'anda bukan admin, tidak bisa menghapus semua artikel'
+        ], 403);
+    }
+
+    //if empty data
+    if($article->isEmpty()){
+        return ['message' => 'Artikel tidak ditemukan'];
+    }
+    
+    $article->each->delete();
+    return ['message' => 'Artikel berhasil dihapus'];
+
+}
+    
 }

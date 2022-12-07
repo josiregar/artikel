@@ -13,6 +13,7 @@ class AuthController extends Controller
 {
     //register
     public function register(Request $request)
+
     {
         if (Auth::user()->role != 'admin') {
             return response([
@@ -70,10 +71,14 @@ class AuthController extends Controller
     // logout
     public function logout()
     {
-        Auth::user()->tokens()->delete();
-        return response()->json([
-            'message' => 'logout success'
-        ]);
+        // if data not found error 404
+        if (Auth::user() == null) {
+            return response([
+                'message' => 'data tidak ditemukan'
+            ], 404);
+        }
+        // if data found
+        $user = Auth::user()->currentAccessToken()->delete();
     }
 
     // update user profile

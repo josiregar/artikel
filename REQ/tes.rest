@@ -1,10 +1,53 @@
 ##Login
 POST http://127.0.0.1:8000/api/login
-
 Content-Type: application/json
 Accept: application/json
 
 {
     "email": "josadisiregar200109@gmail.com",
-    "password": "12345678"
+    "password" : "12345678"
 }
+
+### Create article
+POST http://localhost:8000/api/articles
+
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|wPXemzDdtBym9nfCJpHKcxIHOFTHZXltf3bsWrZi
+{   
+    "title": "pasar",
+    "desc": "banyak jajanan",
+    "image": "",
+    "author_id": 1
+
+}
+
+### get all articles
+GET http://localhost:8000/api/articles
+Content-Type: application/json
+Accept: application/json
+
+### get article by id
+GET http://localhost:8000/api/articles/1
+Content-Type: application/json
+Accept: application/json
+
+
+### Update article
+PUT http://localhost:8000/api/articles/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|nrMjhGowHfw8kf3R6OQy7SMuowKdCX2KY3Xj5WWi
+
+{   
+    "title": "test",
+    "desc": "test",
+    "image": "test",
+    "author_id": 1
+}
+
+### Delete article By Id
+DELETE http://localhost:8000/api/articles/2
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|nrMjhGowHfw8kf3R6OQy7SMuowKdCX2KY3Xj5WWi

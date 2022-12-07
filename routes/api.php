@@ -17,10 +17,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 //Admin only register admin or pengurus
 Route::middleware('auth:sanctum')->group(function (){
-    Route::post('/register', [\App\http\Controllers\Api\Authcontroller::class, 'register']);
-    Route::post('/logout', [\App\http\Controllers\Api\Authcontroller::class, 'logout']);
-    Route::put('/user', [\App\http\Controllers\Api\Authcontroller::class, 'update']);
-    Route::Delete('/user/{id}', [\App\http\Controllers\Api\Articlecontroller::class, 'destroy']);
+    Route::post('/register', [App\Http\Controllers\Api\AuthController::class, 'register']);
+    Route::post('/logout', [App\Http\Controllers\Api\AuthController::class, 'logout']);
+    Route::put('/user', [App\Http\Controllers\Api\Authcontroller::class, 'update']);
+    Route::Delete('/user/{id}', [App\Http\Controllers\Api\AuthController::class, 'destroy']);
 
 });
 
@@ -28,22 +28,32 @@ Route::middleware('auth:sanctum')->group(function (){
 Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
 
 //get all user
-Route::get('/user', [\App\http\Controllers\Api\Authcontroller::class, 'getAllUser']); 
+Route::get('/user', [\App\Http\Controllers\Api\AuthController::class, 'getAllUser']);
 
-/*********************************   Enpoint Articles Route Starts Here   ****************************/
-//Create Article
-Route::middleware('auth:sanctum')->group(function (){
-    Route::post('/article', [\App\http\Controllers\Api\Articlecontroller::class, 'createArticle']);
-    Route::put('/article/{id}', [\App\http\Controllers\Api\Articlecontroller::class, 'updateArticle']);
-    Route::Delete('/article/{id}', [\App\http\Controllers\Api\Articlecontroller::class, 'deleteAticle']);
-    Route::Delete('/article', [\App\http\Controllers\Api\Articlecontroller::class, 'deleteArticle']);
+/**********************************   Enpoint Articles Route Starts Here   *******************************************/
+/**Create Article*/
+Route::middleware('auth:sanctum')->group(function() {
+/**Create Article*/
+Route::post('/articles', [\App\Http\Controllers\Api\ArticleController::class, 'createArticle']);
+/**Update Articles*/
+Route::put('/articles/{id}', [\App\Http\Controllers\Api\ArticleController::class, 'updateArticle']);
+/**Delete Article By Id*/
+Route::delete('/articles/{id}', [\App\Http\Controllers\Api\ArticleController::class, 'deleteArticle']);
+/**Delete all Article*/
+Route::delete('/articles', [\App\Http\Controllers\Api\ArticleController::class, 'deleteAllArticle']);
 });
+/**Get All Article*/
+Route::get('/articles', [\App\Http\Controllers\Api\ArticleController::class, 'getAllArticle']);
+/**Get Article By Id*/
+Route::get('/articles/{id}', [\App\Http\Controllers\Api\ArticleController::class, 'getArticleById']);
+/**********************************   Enpoint Articles Route Ends Here   *******************************************/
+
 
 //get all article
-Route::get('/article', [\App\http\Controllers\Api\Articlecontroller::class, 'getAllArticle']);
+Route::get('/article', [\App\Http\Controllers\Api\Articlecontroller::class, 'getAllArticle']);
 
 //get article by id
-Route::get('/article/{id}', [\App\http\Controllers\Api\Articlecontroller::class, 'getArticleById']);
+Route::get('/article/{id}', [\App\Http\Controllers\Api\Articlecontroller::class, 'getArticleById']);
 
 
 

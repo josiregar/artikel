@@ -4,18 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Mahasiswa;   
+use Illuminate\Support\Facades\Validator;
+
 
 class MahasiswaController extends Controller
 {
     //create data mahasiswa
-    public function create(Request $request)
+    public function createMahasiswa(Request $request)
     {
         //validasi data
         $this->validate($request, [
             'nama' => 'required',
             'alamat' => 'required',
             'tempat_lahir' => 'required',
-            'tanggal lahir' => 'required',
+            'tanggal_lahir' => 'required',
             'npm' => 'required'
         ]);
 
@@ -27,18 +30,10 @@ class MahasiswaController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'npm' => $request->npm
         ]);
-        if($mahasiswa){
-            return response()->json([
-                'success' => true,
-                'message' => 'Mahasiswa berhasil ditambahkan',
-                'data' => $mahasiswa
-            ], 201);
-        }else{
-            return response()->json([
-                'success' => false,
-                'message' => 'Mahasiswa gagal ditambahkan',
-                'data' => ''
-            ], 400);
-        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Mahasiswa berhasil ditambahkan',
+            'data' => $mahasiswa
+        ], 201);
     }
 }

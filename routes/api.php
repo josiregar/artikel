@@ -56,5 +56,6 @@ Route::get('/article', [\App\Http\Controllers\Api\Articlecontroller::class, 'get
 Route::get('/article/{id}', [\App\Http\Controllers\Api\Articlecontroller::class, 'getArticleById']);
 
 
-
+//create mahasiswa
+Route::post('/mahasiswa', [\App\Http\Controllers\Api\MahasiswaController::class, 'createMahasiswa']);
 

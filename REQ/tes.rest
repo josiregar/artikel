@@ -51,3 +51,16 @@ DELETE http://localhost:8000/api/articles/2
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer 1|nrMjhGowHfw8kf3R6OQy7SMuowKdCX2KY3Xj5WWi
+
+### Create mahaasiswa
+POST http://localhost:8000/api/mahasiswa
+Content-Type: application/json
+Accept: application/json
+
+{   
+    "nama": "test",
+    "alamat": "test",
+    "tempat_lahir": "test",
+    "tanggal_lahir": "2020-10-10",
+    "npm": "test"
+}

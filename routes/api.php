@@ -64,3 +64,7 @@ Route::get('/mahasiswa', [\App\Http\Controllers\Api\MahasiswaController::class, 
 
 //get mahasiswa by id
 Route::get('/mahasiswa/{id}', [\App\Http\Controllers\Api\MahasiswaController::class, 'getMahasiswaById']);
+
+//update mahasiswa 
+Route::put('/mahasiswa/{id}', [\App\Http\Controllers\Api\MahasiswaController::class, 'updateMahasiswa']);
+

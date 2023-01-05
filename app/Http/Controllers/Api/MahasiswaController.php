@@ -66,4 +66,46 @@ class MahasiswaController extends Controller
            'data' => $mahasiswa
        ], 200);
    }
+
+   //get update data mahasiswa
+    public function updateMahasiswa(Request $request, $id)
+    {
+         $mahasiswa=Mahasiswa::find($id);
+
+         // if data mahasiswa not found
+         if ($mahasiswa==null) {
+            return response()->json([
+                'massage' => 'data mahasiswa not found'
+            
+            ],200);
+         }
+
+         $validator = Validator::make($request->all(),[
+            'nama' => 'required',
+            'alamat' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'npm' => 'required'
+         ]);
+
+         // check if validator fails
+         if ($validator->fails()){
+            return response()->json($validator->errors());
+         }
+
+         $mahasiswa->update([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'npm' => $request->npm
+         ]);
+
+         return response()->json([
+            'message' => 'Mahasiswa update successfully',
+            'data' => $mahasiswa
+         ],200);
+    }
+
+
 }

@@ -68,3 +68,5 @@ Route::get('/mahasiswa/{id}', [\App\Http\Controllers\Api\MahasiswaController::cl
 //update mahasiswa 
 Route::put('/mahasiswa/{id}', [\App\Http\Controllers\Api\MahasiswaController::class, 'updateMahasiswa']);
 
+//delete mahasiswa by id 
+Route::delete('/mahasiswa/{id}', [\App\Http\Controllers\Api\MahasiswaController::class, 'deleteMahasiswa']);

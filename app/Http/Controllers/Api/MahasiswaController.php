@@ -108,4 +108,24 @@ class MahasiswaController extends Controller
     }
 
 
+    //delete data mahasiswa by id
+    public function deleteMahasiswa($id)
+    {
+        $mahasiswa=Mahasiswa::find($id);
+
+        //if data mahasiswa not found
+        if (!$mahasiswa)
+            return response()->json([
+                'message' => 'Mahasiswa not found'
+            ],200);
+        
+
+        $mahasiswa->delete();
+
+        return response()->json([
+            'message' => 'deleted successfully'
+        ],200);
+    }
+
+
 }

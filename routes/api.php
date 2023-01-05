@@ -70,3 +70,6 @@ Route::put('/mahasiswa/{id}', [\App\Http\Controllers\Api\MahasiswaController::cl
 
 //delete mahasiswa by id 
 Route::delete('/mahasiswa/{id}', [\App\Http\Controllers\Api\MahasiswaController::class, 'deleteMahasiswa']);
+
+//delete all mahasiswa
+Route::delete('/mahasiswa', [\App\Http\Controllers\Api\MahasiswaController::class, 'deleteAllMahasiswa']);

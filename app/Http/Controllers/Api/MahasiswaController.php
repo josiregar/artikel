@@ -28,7 +28,7 @@ class MahasiswaController extends Controller
             'alamat' => $request->alamat,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
-            'npm' => $request->npm
+            'npm' => $request->npm              
         ]);
         return response()->json([
             'success' => true,
@@ -145,8 +145,6 @@ class MahasiswaController extends Controller
         return response ()->json([
             'message' => 'deleted successfully',
             'data' => $mahasiswa
-        
-
         ],200);
     }
 

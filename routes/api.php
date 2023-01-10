@@ -73,3 +73,21 @@ Route::delete('/mahasiswa/{id}', [\App\Http\Controllers\Api\MahasiswaController:
 
 //delete all mahasiswa
 Route::delete('/mahasiswa', [\App\Http\Controllers\Api\MahasiswaController::class, 'deleteAllMahasiswa']);
+
+//create dosen
+Route::post('/dosen', [\App\Http\Controllers\Api\DosenController::class, 'createDosen']);
+
+//get all dosen
+Route::get('/dosen', [\App\Http\Controllers\Api\DosenController::class, 'getAllDosen']);
+
+//get dosen by id
+Route::get('/dosen/{id}', [\App\Http\Controllers\Api\DosenController::class, 'getDosenById']);
+
+//update dosen
+Route::put('/dosen/{id}', [\App\Http\Controllers\Api\DosenController::class, 'updateDosen']);
+
+//delete dosen by id
+Route::delete('/dosen/{id}', [\App\Http\Controllers\Api\DosenController::class, 'deleteDosen']);
+
+//delete all dosen
+Route::delete('/dosen', [\App\Http\Controllers\Api\DosenController::class, 'deleteAllDosen']);
